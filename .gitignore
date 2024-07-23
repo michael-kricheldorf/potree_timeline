@@ -1,7 +1,7 @@
-/data_sources
-/docs
-/examples
-/libs
-/pointclouds
-/resources
-/src
+data_sources
+docs
+examples
+libs
+pointclouds
+resources
+src
