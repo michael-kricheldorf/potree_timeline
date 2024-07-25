@@ -1,4 +1,5 @@
-
+# Note
+This has been indirectly forked from the original [Potree](https://github.com/potree/potree) project to add new features
 
 # About
 

@@ -549,11 +549,56 @@ export class Sidebar{
 			}
 		});
 
+		{ // POINT SIZE
+			// let sldTimeline = elScene.find(`#sldTimeline`);
+			// let lblTimeline = elScene.find(`#lblTimeline`);
+
+			//let pointcloud_nodes = this.viewer.scene.pointcloud_nodes;
+
+			// console.log(sldTimeline);
+
+			// sldTimeline.slider({
+			// 	value: 0,
+			// 	min: 0,
+			// 	max: 1,
+			// 	step: 1,
+			// 	slide: function (event, ui) { this.viewer.scene.togglePointCloudVisibility(ui.value); }
+			// });
+			$('#sldTimeline').slider({
+				value: 0,
+				min: 0,
+				max: 1,
+				step: 1,
+				slide: (event, ui) => { this.viewer.scene.togglePointCloudVisibility(ui.value); }
+			});
+
+			this.viewer.addEventListener("visibility_changed", (event) => {
+				$('#lblTimeline').html(this.viewer.scene.pointclouds[ui.value].name);
+				$('#sldTimeline').slider({
+					value: ui.value, 
+					max: this.viewer.scene.pointclouds.length-1
+				});
+			});
+
+			// this.viewer.addEventListener("pointcloud_added", (event) => {
+			// 	$('#lblTimeline').html(this.viewer.scene.current_pointcloud.name);
+			// 	$('#sldTimeline').slider({
+			// 		value: this.viewer.scene.current_pointcloud_index, 
+			// 		max: this.viewer.scene.pointcloud_nodes.length-1
+			// 	});
+			// });
+
+			//lblTimeline.html(this.viewer.scene.pointclouds.);
+			
+		}
+
 
 		let onPointCloudAdded = (e) => {
 			let pointcloud = e.pointcloud;
 			let cloudIcon = `${Potree.resourcePath}/icons/cloud.svg`;
 			let node = createNode(pcID, pointcloud.name, cloudIcon, pointcloud);
+
+			//this.viewer.scene.pointcloud_nodes.push(node);
 
 			pointcloud.addEventListener("visibility_changed", () => {
 				if(pointcloud.visible){

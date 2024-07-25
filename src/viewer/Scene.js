@@ -25,7 +25,10 @@ export class Scene extends EventDispatcher{
 		this.cameraScreenSpace = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
 		this.cameraMode = CameraMode.PERSPECTIVE;
 		this.overrideCamera = null;
+		
+		// -----
 		this.pointclouds = [];
+		// -----
 
 		this.measurements = [];
 		this.profiles = [];
@@ -48,6 +51,16 @@ export class Scene extends EventDispatcher{
 		this.directionalLight = null;
 
 		this.initialize();
+	}
+
+	togglePointCloudVisibility (index) {
+		for (let pointcloud of this.pointclouds)
+		{
+			pointcloud.visible = false;
+			this.dispatchEvent({type: "visibility_changed", object: pointcloud});
+		}
+		this.pointclouds[index].visible = true;
+		this.dispatchEvent({type: "visibility_changed", object: this.pointclouds[index]});
 	}
 
 	estimateHeightAt (position) {
